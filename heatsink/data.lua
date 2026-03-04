@@ -12,8 +12,6 @@ shpipe.hide_from_player_crafting = true
 shpipe.auto_recycle = false
 data:extend{shpipe}
 
-local cb = {{-1.5,-1}, {1.5,.9}}
-local sb = {{-1.5,-1}, {1.5,1}}
 
 data:extend{{
 	type = "assembling-machine",
@@ -77,22 +75,20 @@ data:extend{{
     dying_explosion = "heat-exchanger-explosion",
     open_sound = util.sounds.steam_open,
     close_sound = util.sounds.steam_close,
-	working_sound =
-    {
-      sound =
-      {
-        filename = "__base__/sound/heat-exchanger.ogg",
-        volume = 0.65,
-        modifiers = volume_multiplier("main-menu", 0.7),
-        audible_distance_modifier = 0.5,
-      },
-      fade_in_ticks = 4,
-      fade_out_ticks = 20
-    },
+	working_sound = {
+		sound = {
+			filename = "__base__/sound/heat-exchanger.ogg",
+			volume = 0.65,
+			modifiers = volume_multiplier("main-menu", 0.7),
+			audible_distance_modifier = 0.5,
+		},
+		fade_in_ticks = 4,
+		fade_out_ticks = 20
+	},
 	circuit_wire_max_distance = 12,
 	max_health = 300,
-	collision_box = cb,
-	selection_box = sb,
+	collision_box = {{-1.45,-1}, {1.45,.9}},
+	selection_box = {{-1.5,-1}, {1.5,1}},
 	flags = {"player-creation"},
 	minable = {
 		mining_time = 0.1,
@@ -194,8 +190,8 @@ data:extend{{
 	selectable_in_game = false,
 	name = "halo-heatsinklowreceiver",
 	hidden = true,
-	collision_box = cb,
-	selection_box = sb,
+	collision_box = {{-1.2,-0.8}, {1.2,.8}},
+	selection_box = {{-1.5,-1}, {1.5,1}},
 	selection_priority = 1,
 	tile_width = 3,
 	tile_height = 2
@@ -233,8 +229,8 @@ data:extend{{
 	selectable_in_game = false,
 	name = "halo-heatsinkhighreceiver",
 	hidden = true,
-	collision_box = cb,
-	selection_box = sb,
+	collision_box = {{-1.2,-0.8}, {1.2,.8}},
+	selection_box = {{-1.5,-1}, {1.5,1}},
 	selection_priority = 1,
 	tile_width = 3,
 	tile_height = 2

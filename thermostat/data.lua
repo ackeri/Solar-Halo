@@ -40,14 +40,8 @@ data:extend{{
         percent = 30
       }
     },
-	collision_box = {
-		left_top = { x = -0.1, y = -0.1 },
-		right_bottom =  { x = 0.1, y = 0.1 }
-	},
-	selection_box = {
-		left_top = { x = -0.5, y = -0.5 },
-		right_bottom =  { x = 0.5, y = 0.5 }
-	},
+	collision_box = {{-.1,-.1}, {0.1,0.1}},
+	selection_box = {{-0.5,-0.5}, {0.5,0.5}},
 	flags = {"player-creation"},
 	circuit_wire_max_distance = 12,
 	minable = {

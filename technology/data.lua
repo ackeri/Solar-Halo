@@ -22,7 +22,7 @@ data:extend{{
 	type = "technology",
 	name = "halo-discovery-solar",
 	icon = "__Solar-Halo__/space/solarorbit.png",
-	icon_size = 512,
+	icon_size = 128,
 	essential = true,
 	unit = {count = 1000, time = 60, ingredients =
 		{

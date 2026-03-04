@@ -54,6 +54,8 @@ for name,proto in pairs(modules) do
 			{type = "fluid", name = "halo-compute", amount = 100000}
 		},
 		results = {{type = "item", name = newm.name, amount = 1}},
+		allow_productivity = false,
+		allow_quality = false,
 		energy_required = 30,
 		hide_from_player_crafting = true,
 	}

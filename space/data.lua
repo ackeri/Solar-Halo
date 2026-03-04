@@ -8,7 +8,7 @@ data:extend{{
 	orientation = 0.125,
 	solar_power_in_space = 10000,
 	icon = "__Solar-Halo__/space/solarorbit.png",
-	icon_size = 512,
+	icon_size = 128,
 	starmap_icon = "__Solar-Halo__/blank.png",
 	starmap_icon_size = 1,
 	fly_condition = true,
@@ -35,14 +35,14 @@ data:extend{{
 			shift = {-7, -7}
 		},{
 			icon = "__Solar-Halo__/space/solarorbit.png",
-			icon_size = 512,
-			scale = 0.36 * (64 / 512),
+			icon_size = 128,
+			scale = 0.36 * (64 / 128),
 			shift = {8, 8},
 			tint = {0, 0, 0, 0.3}
 		},{
 			icon = "__Solar-Halo__/space/solarorbit.png",
-			icon_size = 512,
-			scale = 0.38 * (64 / 512),
+			icon_size = 128,
+			scale = 0.38 * (64 / 128),
 			shift = {6, 6}
 	}},
 	asteroid_spawn_definitions = {{

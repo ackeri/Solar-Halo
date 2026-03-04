@@ -1,7 +1,6 @@
 local util = require("util")
 
-local cb = {{-0.4, -1}, {0.4, 1}}
-local sb = {{-0.5, -1}, {0.5, 1}}
+local cb = 
 
 data:extend{{
 	type = "assembling-machine",
@@ -40,8 +39,8 @@ data:extend{{
 	allow_module_categories = {"speed", "efficiency"},
 	max_health = 300,
 	circuit_wire_max_distance = 12,
-	collision_box = cb,
-	selection_box = sb,
+	collision_box = {{-0.4, -1}, {0.4, 1}},
+	selection_box = {{-0.5, -1}, {0.5, 1}},
 	flags = {"hide-alt-info", "player-creation"},
 	allow_copy_paste = true,
 	minable = {
@@ -72,7 +71,7 @@ data:extend{{
 		animation = {
 			north = {
 				filename = "__Solar-Halo__/heatpump/animationN.png",
-				size = {103, 165},
+				size = {103, 164},
 				scale = 0.5,
 				frame_count = 32,
 				line_length = 8,
@@ -134,8 +133,8 @@ data:extend{{
 	},
 	show_recipe_icon = false,
 	show_recipe_icon_on_map = false,
-	collision_box = cb,
-	selection_box = sb,
+	collision_box = {{-0.4, -1}, {0.4, 1}},
+	selection_box = {{-0.5, -1}, {0.5, 1}},
 	selection_priority = 1,
 	flags = {"not-on-map", "not-deconstructable", "not-blueprintable", "hide-alt-info", "not-flammable", "not-selectable-in-game"},
 	selectable_in_game = false,
@@ -173,14 +172,8 @@ data:extend{{
 	},
 	consumption = "500MW",
 	scale_energy_usage = true,
-	collision_box = {
-		left_top = {x = -0.4, y = -.4}, 
-		right_bottom = {x = 0.4, y = .4}
-	},
-	selection_box = {
-		left_top = {x = -.5, y = -.5},
-		right_bottom = {x = .5, y = .5}
-	},
+	collision_box = {{-0.4, -0.4}, {0.4, 0.4}},
+	selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
 	tile_height = 1,
 	tile_width = 1,
 	selection_priority = 1,

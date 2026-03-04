@@ -50,6 +50,7 @@ for tool, tech in pairs(sciences) do
 		},
 		results = {{type = "item", name = tool.name, amount = 1}},
 		energy_required = 0.5,
+		allow_productivity = true,
 		hide_from_player_crafting = true,
 		hidden_in_factoriopedia = true,
 	}
