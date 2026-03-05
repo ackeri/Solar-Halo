@@ -37,29 +37,61 @@ function genIngredients(name)
 	return out
 end
 
+local recipewhitelist = {
+	"automation-science-pack",
+	"logistic-science-pack",
+	"chemical-science-pack",
+	"space-science-pack",
+	"halo-science-pack"
+}
+
+local whitelist = {
+	"production-science-pack",
+	"utility-science-pack",
+	"military-science-pack",
+	"metallurgic-science-pack",
+	"agricultural-science-pack",
+	"electromagnetic-science-pack",
+	"cryogenic-science-pack",
+	"promethium-science-pack",
+	"halo-science-pack",
+	"pelagos-science-pack",
+	"hydraulic-science-pack",
+	"battlefield-science-pack",
+	"electrochemical-science-pack",
+}
+
+function contains(list, element)
+	for _,v in ipairs(list) do
+		if v == element then
+			return true
+		end
+	end
+	return false
+end
+
 local sims = {}
 for tool, tech in pairs(sciences) do
-	local newr = {
-		type = "recipe",
-		name = "halo-" .. tool.name,
-		localised_name = {"halo-name-simulate", util.getLocalName(tool)},
-		enabled = false,
-		category = "crafting-with-fluid",
-		ingredients = {
-			{type = "fluid", name = "halo-compute", amount = 10000}
-		},
-		results = {{type = "item", name = tool.name, amount = 1}},
-		energy_required = 0.5,
-		allow_productivity = true,
-		hide_from_player_crafting = true,
-		hidden_in_factoriopedia = true,
-	}
-	table.insert(sims, newr)
-	if tech.name ~= "automation-science-pack" and
-		tech.name ~= "logistic-science-pack" and
-		tech.name ~= "chemical-science-pack" and
-		tech.name ~= "space-science-pack" and
-		tech.name ~= "halo-science-pack" then
+	if contains(recipewhitelist, tool.name) or
+		contains(whitelist, tool.name) then
+		local newr = {
+			type = "recipe",
+			name = "halo-" .. tool.name,
+			localised_name = {"halo-name-simulate", util.getLocalName(tool)},
+			enabled = false,
+			category = "crafting-with-fluid",
+			ingredients = {
+				{type = "fluid", name = "halo-compute", amount = 10000}
+			},
+			results = {{type = "item", name = tool.name, amount = 1}},
+			energy_required = 0.5,
+			allow_productivity = true,
+			hide_from_player_crafting = true,
+			hidden_in_factoriopedia = true,
+		}
+		table.insert(sims, newr)
+	end
+	if contains(whitelist, tool.name) then
 		local newt = {
 			type = "technology",
 			name = "halo-sim-" .. tool.name,
