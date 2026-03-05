@@ -4,6 +4,16 @@ local modules = data.raw["module"]
 local newmodules = {}
 local unlocks = data.raw["technology"]["halo-module"].effects
 
+function bound(min, val, max)
+	if val < min then
+		return min
+	elseif val > max then
+		return max
+	else
+		return val
+	end
+end
+
 for name,proto in pairs(modules) do
 	local newm = table.deepcopy(proto)
 	newm.name = "halo-charged-"..name
@@ -30,18 +40,19 @@ for name,proto in pairs(modules) do
 	local e = newm.effect
 	if e.consumption ~= nil then
 		e.consumption = e.consumption * 2
+		if e.consumpt
 	end
 	if e.speed ~= nil then
-		e.speed = e.speed * 2
+		e.speed = bound(-325, e.speed * 2, 325)
 	end
 	if e.productivity ~= nil then
-		e.productivity = e.productivity * 2
+		e.productivity = bound(-325, e.productivity * 2, 325)
 	end
 	if e.pollution ~= nil then
-		e.pollution = e.pollution * 2
+		e.pollution = bound(-325, e.pollution * 2, 325)
 	end
 	if e.quality ~= nil then
-		e.quality = e.quality * 2
+		e.quality = bound(-325, e.quality * 2, 325)
 	end
 	table.insert(newmodules, newm)
 	

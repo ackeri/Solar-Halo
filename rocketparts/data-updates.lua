@@ -66,7 +66,7 @@ for name, proto in pairs(data.raw["rocket-silo"]) do
 				volume = 500,
 				pipe_connections = {{
 						direction = defines.direction.west,
-						position = {x = minx, y = miny}
+						position = {x = -4, y = -4}
 				}},
 				production_type = "input"
 		}}
