@@ -3,7 +3,8 @@
 script.on_init(
 function()
 	storage["computer"] = {}
-	storage["solar"] = {}
+	storage["solar-surface"] = {}
+	storage["solar-forces"] = {}
 end)
 
 function getOffset(direction)
@@ -202,29 +203,46 @@ function(event)
 end)
 
 ----------Solar Productivity----------
+function updateSolar()
+	local m = 0
+	for _,lvl in pairs(storage["solar-forces"]) do
+		game.print("force level " .. lvl)
+		if lvl > m then m = lvl end
+	end
+
+	for _,s in pairs(game.surfaces) do
+		if storage["solar-surface"] == nil then
+			storage["solar-surface"] = {}
+		end
+		if storage["solar-surface"][s.name] == nil then
+			storage["solar-surface"][s.name] = s.solar_power_multiplier
+		end
+		local solar = storage["solar-surface"][s.name]
+		local bonus = solar * 0.1 * m
+		s.solar_power_multiplier = solar + bonus
+	end
+end
+
 script.on_event(defines.events.on_research_finished,
 function(event)
 	if event.research.name == "halo-solar" then
-		for _,s in pairs(game.surfaces) do
-			if storage["solar"][s.name] == nil then
-				storage["solar"][s.name] = s.solar_power_multiplier
-			end
-			local solar = storage["solar"][s.name]
-			local bonus = solar * 0.1 * event.research.level
-			s.solar_power_multiplier = solar + bonus
+		if storage["solar-forces"] == nil then
+			storage["solar-forces"] = {}
 		end
+
+		storage["solar-forces"][event.research.force.name] = event.research.level - 1
+
+		updateSolar()
 	end
 end)
 
 script.on_event(defines.events.on_research_reversed,
 function(event)
 	if event.research.name == "halo-solar" then
-		for _,s in pairs(game.surfaces) do
-			if storage["solar"][s.name] == nil then
-				storage["solar"][s.name] = s.solar_power_multiplier
-			end
-			local solar = storage["solar"][s.name]
-			s.solar_power_multiplier = solar
+		if storage["solar-forces"] == nil then
+			storage["solar-forces"] = {}
 		end
+		storage["solar-forces"][event.research.force.name] = 0
+		updateSolar()
 	end
 end)
