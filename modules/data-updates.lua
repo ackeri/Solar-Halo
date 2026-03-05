@@ -39,8 +39,7 @@ for name,proto in pairs(modules) do
 	
 	local e = newm.effect
 	if e.consumption ~= nil then
-		e.consumption = e.consumption * 2
-		if e.consumpt
+		e.consumption = bound(-325, e.consumption * 2, 325)
 	end
 	if e.speed ~= nil then
 		e.speed = bound(-325, e.speed * 2, 325)
