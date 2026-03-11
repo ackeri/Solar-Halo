@@ -33,7 +33,7 @@ data:extend{{
 	corpse = "fusion-reactor-remnants",
 
     emissions_per_second = {},
-	health = 200,
+	max_health = 200,
     placeable_by = {item = "halo-terminal", count = 1},
     minable = {
         mining_time = 2,

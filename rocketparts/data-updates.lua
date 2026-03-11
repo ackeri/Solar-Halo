@@ -1,46 +1,3 @@
-
-function newrecipe(proto)
-	local newr = table.deepcopy(proto)
-	newr.name = "halo-" .. proto.name
-	if newm.icon then
-		newm.icons = {{
-			icon = newm.icon,
-			icon_size = newm.icon_size,
-		}}
-		newm.icon = nil
-		newm.icon_size = nil
-	end
-	table.insert(newr.icons,1,{
-		icon = "__Solar-Halo__/computer/compute.png",
-		icon_size = 64,
-	})
-	
-	local usesProc = false
-	for _,ing in ipairs(newr.ingredients) do
-		if ing.name == "processing-unit" and ing.type == "item" then
-			ing.type = "fluid"
-			ing.name = "halo-compute"
-			ing.amount = ing.amount * 1000
-			usesProc = true
-		end
-	end
-	
-	if usesProc then
-		return newr
-	else
-		return nil
-	end
-end
-
-for name, proto in pairs(data.raw["recipe"]) do
-	if proto.results and proto.results.name == "rocket-part" then
-		local newr = newrecipe(proto)
-		if newr then
-			data:extend{{newr}}
-		end
-	end
-end
-
 local rocketrecipe = {
 	type = "recipe",
 	name = "halo-rocket",
@@ -57,10 +14,12 @@ local rocketrecipe = {
 }
 data:extend{rocketrecipe}
 
----------Rocket Silo Fix---------
-local proto = data.raw["rocket-silo"]["rocket-silo"]
 for name, proto in pairs(data.raw["rocket-silo"]) do
-	proto.fixed_recipe = nil
+	if proto.fixed_recipe == "rocket-part" then
+		proto.fixed_recipe = nil
+		proto.disabled_when_recipe_not_researched = true
+	end
+
 	if name == "rocket-silo" and proto.fluid_boxes == nil then
 		proto.fluid_boxes = {{
 				volume = 500,

@@ -1,10 +1,33 @@
 --control.lua
 
-script.on_init(
-function()
-	storage["computer"] = {}
-	storage["solar-surface"] = {}
-	storage["solar-forces"] = {}
+local function ensure_storage_tables()
+	storage["computer"] = storage["computer"] or {}
+	storage["solar-surface"] = storage["solar-surface"] or {}
+	storage["solar-forces"] = storage["solar-forces"] or {}
+end
+
+local function ensure_rocket_silo_recipe(entity)
+	if not (entity and entity.valid and entity.type == "rocket-silo") then
+		return
+	end
+
+	if entity.get_recipe() == nil then
+		entity.set_recipe("rocket-part")
+	end
+	entity.recipe_locked = false
+end
+
+local function ensure_all_rocket_silo_recipes()
+	for _, surface in pairs(game.surfaces) do
+		for _, silo in pairs(surface.find_entities_filtered{type = "rocket-silo"}) do
+			ensure_rocket_silo_recipe(silo)
+		end
+	end
+end
+
+script.on_init(function()
+	ensure_storage_tables()
+	ensure_all_rocket_silo_recipes()
 end)
 
 function getOffset(direction)
@@ -19,6 +42,11 @@ function getOffset(direction)
 	end
 end
 
+script.on_configuration_changed(function()
+	ensure_storage_tables()
+	ensure_all_rocket_silo_recipes()
+end)
+
 ----------building created---------
 script.on_event({
 	defines.events.on_built_entity,
@@ -30,6 +58,8 @@ script.on_event({
 function(event)
 	local entity = event.created_entity or event.entity or event.destination
 	if not entity.valid then return end
+	ensure_rocket_silo_recipe(entity)
+
 	if entity.name == "halo-computer" then 
 		local heat = entity.surface.create_entity {
 			name = "halo-computer-heat",
@@ -196,9 +226,13 @@ end)
 ----------Navigation Computer----------
 script.on_event(defines.events.on_script_trigger_effect,
 function(event)
+	if event.effect_id ~= "navcomp" then
+		return
+	end
+
 	local e = event.target_entity
-	if e ~= nil and e.valid then
-		event.target_entity.destroy()
+	if e ~= nil and e.valid and e.type == "asteroid" then
+		e.destroy()
 	end
 end)
 

@@ -36,7 +36,7 @@ data:extend{{
 	},
 	module_slots = 2,
 	allowed_effects = {"speed", "consumption"},
-	allow_module_categories = {"speed", "efficiency"},
+	allowed_module_categories = {"speed", "efficiency"},
 	max_health = 300,
 	circuit_wire_max_distance = 12,
 	collision_box = {{-0.4, -1}, {0.4, 1}},
@@ -108,7 +108,7 @@ data:extend{{
 		max_temperature = 999,
 		specific_heat = "3MJ",
 		max_transfer = "500MW",
-		minimum_working_temperature = 40,
+		min_working_temperature = 40,
 		connections = {
 			{
 				position = {x = 0, y = .8},
