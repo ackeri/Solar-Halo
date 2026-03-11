@@ -30,6 +30,11 @@ script.on_init(function()
 	ensure_all_rocket_silo_recipes()
 end)
 
+script.on_configuration_changed(function()
+	ensure_storage_tables()
+	ensure_all_rocket_silo_recipes()
+end)
+
 function getOffset(direction)
 	if direction == defines.direction.north then
 		return 0, -0.5
@@ -41,11 +46,6 @@ function getOffset(direction)
 		return -0.5, 0
 	end
 end
-
-script.on_configuration_changed(function()
-	ensure_storage_tables()
-	ensure_all_rocket_silo_recipes()
-end)
 
 ----------building created---------
 script.on_event({
@@ -209,7 +209,7 @@ end)
 
 script.on_event(defines.events.on_tick,
 function(event)
-	if event.tick % 20 ~= 0 then return end
+	if event.tick % 19 ~= 0 then return end
 	
 	for _,t in pairs(storage["computer"]) do
 		local newp = t.c.products_finished

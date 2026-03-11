@@ -138,12 +138,7 @@ data:extend{{
 		}
 	},
 	prerequisites = {"halo-compute"},
-	effects = {
-		{
-			type = "unlock-recipe",
-			recipe = "halo-rocket"
-		}
-	}
+	effects = {}
 },{
 	type = "technology",
 	name = "halo-module",
