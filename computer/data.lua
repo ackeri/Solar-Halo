@@ -42,22 +42,26 @@ data:extend{{
 	emissions_per_second = {},
 	
 	fluid_boxes = {{
-		volume = 1000,
+		volume = 10000,
 		pipe_picture = util.pipe_picture,
 		pipe_covers = util.pipecoverspictures(),
 		secondary_draw_order = -5,
 		pipe_connections = {{
 				direction = defines.direction.north,
 				position = {0.5,-1.5},
+				flow_direction = "output",
 			},{
 				direction = defines.direction.east,
 				position = {1.5,-0.5},
+				flow_direction = "output",
 			},{
 				direction = defines.direction.south,
 				position = {-0.5,1.5},
+				flow_direction = "output",
 			},{
 				direction = defines.direction.west,
 				position = {-1.5,0.5},
+				flow_direction = "output",
 		}},
 		production_type = "output",
 	}},
