@@ -10,6 +10,7 @@ data:extend{{
     icon = "__Solar-Halo__/terminal/icon.png",
     collision_box = cb,
     selection_box = sb,
+	flags = {"player-creation"},
 
     crafting_speed = 1,
     crafting_categories = {"halo-terminal"},
