@@ -127,18 +127,26 @@ data:extend{{
 	name = "halo-rocket",
 	icon = "__base__/graphics/icons/rocket-part.png",
 	essential = false,
-	unit = {count = 500, time = 60, ingredients =
+	unit = {count = 1500, time = 60, ingredients =
 		{
 			{"automation-science-pack", 1},
 			{"logistic-science-pack", 1},
 			{"chemical-science-pack", 1},
 			{"production-science-pack", 1},
 			{"space-science-pack", 1},
-			{"halo-science-pack", 1}
+			{"halo-science-pack", 1},
+			{"electromagnetic-science-pack", 1},
+			{"cryogenic-science-pack", 1},
 		}
 	},
-	prerequisites = {"halo-compute"},
-	effects = {}
+	prerequisites = {"halo-terminal", "railgun"},
+	effects = {{
+			type = "unlock-recipe",
+			recipe = "halo-rocket-silo"
+		},{
+			type = "unlock-recipe",
+			recipe = "halo-rocket-part"
+	}}
 },{
 	type = "technology",
 	name = "halo-module",
@@ -154,7 +162,7 @@ data:extend{{
 			{"halo-science-pack", 1}
 		}
 	},
-	prerequisites = {"halo-rocket"},
+	prerequisites = {"halo-compute"},
 	effects = {} --data-updates.lua
 },{
 	type = "technology",
@@ -280,5 +288,36 @@ data:extend{{
 		},{
 			type = "unlock-recipe",
 			recipe = "halo-halo-science-pack"
+	}}
+},{
+	type = "technology",
+	name = "halo-discovery-station",
+	icons = {{
+		icon = "__Solar-Halo__/space/solarorbit.png",
+		icon_size = 128,
+	},{
+		icon = "__Solar-Halo__/space/station-foundation.png",
+		scale = 0.36
+	}},
+	essential = true,
+	unit = {count = 5000, time = 60, ingredients =
+		{
+			{"automation-science-pack", 1},
+			{"logistic-science-pack", 1},
+			{"chemical-science-pack", 1},
+			{"production-science-pack", 1},
+			{"space-science-pack", 1},
+			{"halo-science-pack", 1},
+			{"metallurgic-science-pack", 1},
+			{"cryogenic-science-pack", 1},
+		}
+	},
+	prerequisites = {"halo-heatsink-high", "foundation"},
+	effects = {{
+			type = "unlock-space-location",
+			space_location = "halo-solar-station"
+		},{
+			type = "unlock-recipe",
+			recipe = "halo-foundation"
 	}}
 }}

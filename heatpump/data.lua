@@ -1,11 +1,16 @@
-local util = require("util")
+local util = require("halo-util")
 
 local cb = 
 
 data:extend{{
 	type = "assembling-machine",
-	icon = "__Solar-Halo__/heatpump/icon.png",
-	icon_size = 64,
+	icons = {{
+		icon = "__base__/graphics/icons/signal/signal-thermometer-red.png"
+	},{
+		icon = "__Solar-Halo__/heatpump/icon.png",
+		icon_size = 64,
+		scale = 0.8
+	}},
 	fixed_recipe = "halo-heatpump-activity",
 	quality_affects_energy_usage = true,
 	energy_usage = "32MW",
@@ -114,7 +119,10 @@ data:extend{{
 				position = {x = 0, y = .8},
 				direction = defines.direction.south
 			}
-		}
+		},
+		pipe_covers = util.pipe_covers,
+		heat_pipe_covers = util.heat_pipe_covers,
+		heat_picture = util.heat_picture,
 	},
 	energy_usage = "500MW",
 	fluid_boxes = {{
@@ -151,7 +159,7 @@ data:extend{{
 			{position = {x = 0, y = 0}, direction = 4},
 			{position = {x = 0, y = 0}, direction = 8},
 			{position = {x = 0, y = 0}, direction = 12}
-		}
+		},
 	},
 	heating_radius = 1,
 	energy_source = {
@@ -187,7 +195,12 @@ data:extend{{
 	place_result = "halo-heatpump",
 	name = "halo-heatpump",
 	subgroup = "environmental-protection",
-	icon = "__Solar-Halo__/heatpump/icon.png"
+	icons = {{
+		icon = "__base__/graphics/icons/signal/signal-thermometer-red.png"
+	},{
+		icon = "__Solar-Halo__/heatpump/icon.png",
+		icon_size = 64,
+	}}
 },{
 	type = "recipe",
 	name = "halo-heatpump",

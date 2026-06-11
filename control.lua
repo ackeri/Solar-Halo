@@ -6,33 +6,33 @@ local function ensure_storage_tables()
 	storage["solar-forces"] = storage["solar-forces"] or {}
 end
 
-local function ensure_rocket_silo_recipe(entity)
-	if not (entity and entity.valid and entity.type == "rocket-silo") then
-		return
-	end
-
-	if entity.get_recipe() == nil then
-		entity.set_recipe("rocket-part")
-	end
-	entity.recipe_locked = false
-end
-
-local function ensure_all_rocket_silo_recipes()
-	for _, surface in pairs(game.surfaces) do
-		for _, silo in pairs(surface.find_entities_filtered{type = "rocket-silo"}) do
-			ensure_rocket_silo_recipe(silo)
+local function ensure_solar_station_power()
+	if storage["solar-station"] == nil or not storage["solar-station"].valid then
+		local surface = game.get_surface("halo-solar-station")
+		if surface then
+			local e = surface.create_entity {
+				name = "halo-station-energy",
+				position = {0,0},
+				force = "player",
+			}
+			e.destructible = false
+			e.minable = false
+			local p = 800000000
+			e.power_production = p
+			e.electric_buffer_size = p/60
+			storage["solar-station"] = e
 		end
 	end
 end
 
 script.on_init(function()
 	ensure_storage_tables()
-	ensure_all_rocket_silo_recipes()
+	ensure_solar_station_power()
 end)
 
 script.on_configuration_changed(function()
 	ensure_storage_tables()
-	ensure_all_rocket_silo_recipes()
+	ensure_solar_station_power()
 end)
 
 function getOffset(direction)
@@ -47,6 +47,61 @@ function getOffset(direction)
 	end
 end
 
+----------surface----------
+script.on_event({
+	defines.events.on_surface_created,
+	defines.events.on_surface_imported},
+function(event)
+	local s = game.get_surface(event.surface_index)
+	if s and s.name == "halo-solar-station" then
+		s.create_global_electric_network()
+		s.solar_power_multiplier = 0
+		ensure_solar_station_power()
+		s.daytime = 0.5
+		s.freeze_daytime = true
+	end
+end)
+
+script.on_event({
+	defines.events.on_surface_deleted,
+	defines.events.on_surface_cleared},
+function(event)
+	local s = game.get_surface(event.surface_index)
+	if s and s.name == "halo-solar-station" then
+		ensure_solar_station_power()
+	end
+end)
+
+----------tile created---------
+script.on_event({
+	defines.events.on_player_built_tile,
+	defines.events.on_robot_built_tile},
+function(event)
+	local s = game.get_surface(event.surface_index)
+	if s.name == "halo-solar-station" then
+		ensure_solar_station_power()
+		local p = storage["solar-station"].power_production
+		p = p + 13000000 * #event.tiles
+		storage["solar-station"].power_production = p
+		storage["solar-station"].electric_buffer_size = p/60
+	end
+end)
+
+---------tile removed---------
+script.on_event({
+	defines.events.on_player_mined_tile,
+	defines.events.on_robot_mined_tile},
+function(event)
+	local s = game.get_surface(event.surface_index)
+	if s.name == "halo-solar-station" then
+		local p = storage["solar-station"].power_production
+		for _, tile in pairs(event.tiles) do
+			if tile.old_tile.name == "halo-foundation" then p = p - 13000000 end
+		end
+		storage["solar-station"].power_production = p
+		storage["solar-station"].electric_buffer_size = p/60
+	end
+end)
 ----------building created---------
 script.on_event({
 	defines.events.on_built_entity,
@@ -58,7 +113,6 @@ script.on_event({
 function(event)
 	local entity = event.created_entity or event.entity or event.destination
 	if not entity.valid then return end
-	ensure_rocket_silo_recipe(entity)
 
 	if entity.name == "halo-computer" then 
 		local heat = entity.surface.create_entity {
@@ -66,7 +120,6 @@ function(event)
 			position = entity.position,
 			force = entity.force_index,
 			direction = entity.direction,
-			quality = entity.quality,
 			create_build_effect_smoke = false,
 		}
 		heat.destructible = false
@@ -206,12 +259,12 @@ function(event)
 	end
 end)
 
-
+----------Computer----------
 script.on_event(defines.events.on_tick,
 function(event)
-	if event.tick % 19 ~= 0 then return end
-	
-	for _,t in pairs(storage["computer"]) do
+	if event.tick % 67 ~= 0 then return end
+
+	for i,t in pairs(storage["computer"]) do
 		local newp = t.c.products_finished
 		local dur = (newp - t.p)/t.c.crafting_speed
 		local mult = 1000*0.5*(t.c.consumption_bonus + 1)
@@ -221,7 +274,6 @@ function(event)
 		t.c.disabled_by_script = (t.h.temperature >= 200)
 	end
 end)
-
 
 ----------Navigation Computer----------
 script.on_event(defines.events.on_script_trigger_effect,
@@ -240,7 +292,6 @@ end)
 function updateSolar()
 	local m = 0
 	for _,lvl in pairs(storage["solar-forces"]) do
-		game.print("force level " .. lvl)
 		if lvl > m then m = lvl end
 	end
 
@@ -252,8 +303,10 @@ function updateSolar()
 			storage["solar-surface"][s.name] = s.solar_power_multiplier
 		end
 		local solar = storage["solar-surface"][s.name]
-		local bonus = solar * 0.1 * m
-		s.solar_power_multiplier = solar + bonus
+		if solar > 0 then
+			local bonus = solar * 0.1 * m
+			s.solar_power_multiplier = solar + bonus
+		end
 	end
 end
 

@@ -20,4 +20,15 @@ data:extend {{
         type = "build-entity",
         entity = "halo-computer",
     },
+},{
+    type = "tips-and-tricks-item",
+    name = "halo-solar-station-briefing",
+	tag = "[item=halo-station-foundation]",
+    category = "space-age",
+	order = "halo3",
+    indent = 1,
+    trigger = {
+        type = "research",
+        technology = "halo-discovery-station"
+    },
 }}

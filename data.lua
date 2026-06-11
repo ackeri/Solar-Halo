@@ -5,9 +5,11 @@ require("terminal.data")
 require("heatpump.data")
 require("heatsink.data")
 require("thermostat.data")
+require("rocketsilo.data")
 require("nav-computer.data")
 require("gmo.data")
 require("technology.data")
+require("tipsandtricks.data")
 
 data:extend{{
 	type = "fluid",

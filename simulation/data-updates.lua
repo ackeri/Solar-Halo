@@ -1,4 +1,4 @@
-local util = require("util")
+local util = require("halo-util")
 
 function outputsTool(recipe)
 	if data.raw["recipe"][recipe] and data.raw["recipe"][recipe].results then
@@ -79,16 +79,19 @@ for tool, tech in pairs(sciences) do
 			name = "halo-" .. tool.name,
 			localised_name = {"halo-name-simulate", util.getLocalName(tool)},
 			enabled = false,
-			category = "crafting-with-fluid",
+			category = "halo-computing",
 			ingredients = {
-				{type = "fluid", name = "halo-compute", amount = 10000}
+				{type = "fluid", name = "halo-compute", amount = 1000}
 			},
-			results = {{type = "item", name = tool.name, amount = 1}},
-			energy_required = 0.5,
+			results = {{type = "item", name = tool.name, amount = 1, probability = 0.1}},
+			energy_required = 1,
 			allow_productivity = true,
 			hide_from_player_crafting = true,
-			hidden_in_factoriopedia = true,
+			hidden_in_factoriopedia = false,
 		}
+		if tool.spoil_ticks then
+			newr.results[1].percent_spoiled = 0.2
+		end
 		table.insert(sims, newr)
 	end
 	if contains(whitelist, tool.name) then

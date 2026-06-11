@@ -1,5 +1,4 @@
 require("modules.data-updates")
-require("rocketparts.data-updates")
 require("nav-computer.data-updates")
 require("simulation.data-updates")
 

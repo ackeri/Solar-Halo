@@ -1,4 +1,4 @@
-local util = require("util")
+local util = require("halo-util")
 
 local cb = {{-3.9,-3.9}, {3.9,3.9}}
 local sb = {{-4,-4}, {4,4}}

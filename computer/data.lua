@@ -1,4 +1,13 @@
-local util = require("util")
+local util = require("halo-util")
+
+local hps = {
+	sheet = {
+		filename = "__Solar-Halo__/computer/heat-animation.png",
+		width = 192,
+		height = 192,
+		scale = 0.5,
+	}
+}
 
 data:extend{{
 	type = "assembling-machine",
@@ -9,7 +18,7 @@ data:extend{{
 	selection_box = {{-2,-2},{2,2}},
 	tile_width = 4,
 	tile_height = 4,
-	flags = {"player-creation", "hide-alt-info", "not-rotatable"},
+	flags = {"player-creation", "not-rotatable"},
 	build_sound = "__base__/sound/combinator.ogg",
 	open_sound = "__base__/sound/gate-open-2.ogg",
 	close_sound = "__base__/sound/gate-close-5.ogg",
@@ -25,8 +34,6 @@ data:extend{{
 	
 	crafting_categories = {"halo-computing"},
 	crafting_speed = 1,
-	fixed_recipe = "halo-compute",
-	show_recipe_icon = false,
 
 	energy_usage = "1GW",
 	energy_source = {
@@ -41,6 +48,7 @@ data:extend{{
 	effect_receiver = {uses_beacon_effects = false, uses_surface_effects = false},
 	emissions_per_second = {},
 	
+	fluid_boxes_off_when_no_fluid_recipe = true,
 	fluid_boxes = {{
 		volume = 10000,
 		pipe_picture = util.pipe_picture,
@@ -64,6 +72,29 @@ data:extend{{
 				flow_direction = "output",
 		}},
 		production_type = "output",
+	},{
+		volume = 10000,
+		pipe_picture = util.pipe_picture,
+		pipe_covers = util.pipecoverspictures(),
+		secondary_draw_order = -5,
+		pipe_connections = {{
+				direction = defines.direction.north,
+				position = {-0.5,-1.5},
+				flow_direction = "input",
+			},{
+				direction = defines.direction.east,
+				position = {1.5,0.5},
+				flow_direction = "input",
+			},{
+				direction = defines.direction.south,
+				position = {0.5,1.5},
+				flow_direction = "input",
+			},{
+				direction = defines.direction.west,
+				position = {-1.5,-0.5},
+				flow_direction = "input",
+		}},
+		production_type = "input",
 	}},
 
 	placeable_by = {item = "halo-computer", count = 1},
@@ -120,7 +151,7 @@ data:extend{{
 },{
 	type = "heat-pipe",
 	name = "halo-computer-heat",
-	hidden = true,
+	hidden = false,
 	hidden_in_factoriopedia = true,
 	collision_box = {{-1.9,-1.9},{1.9,1.9}},
 	tile_width = 4,
@@ -157,7 +188,7 @@ data:extend{{
 				position = {x = -1.5, y = -1.5},
 		}},
 	},
-	flags = {"not-on-map", "not-deconstructable", "not-blueprintable", "hide-alt-info", "not-flammable", "not-selectable-in-game"},
+	flags = {"not-on-map", "not-deconstructable", "not-blueprintable", "not-flammable", "not-selectable-in-game"},
 },{
 	type = "item",
 	name = "halo-computer",

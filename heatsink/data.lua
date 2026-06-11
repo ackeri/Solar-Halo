@@ -1,6 +1,13 @@
-local util = require("util")
+local util = require("halo-util")
 
 local shpipe = table.deepcopy(data.raw["item"]["heat-pipe"])
+shpipe.icons = {{
+	icon = "__Solar-Halo__/heatsink/shp-glow.png"
+},{
+	icon = shpipe.icon,
+	size = shpipe.icon_size
+}}
+shpipe.icon = nil
 shpipe.name = "halo-superheated-pipe"
 shpipe.fuel_category = "chemical"
 shpipe.burnt_result = "heat-pipe"
@@ -22,7 +29,6 @@ data:extend{{
 	energy_usage = "1W",
 	crafting_speed = 1,
 	crafting_categories = {"halo-heatsink"},
-    fast_replaceable_group = "heat-exchanger",
     damaged_trigger_effect = util.hit_effects.entity(),
 	fluid_boxes = {{
 			volume = 1000,
@@ -42,36 +48,33 @@ data:extend{{
 			pipe_picture = pipe_picture,
 			pipe_picture_frozen = pipe_frozen,
 			pipe_covers = pipecoverspictures(),
-			secondary_draw_order = -5,
+			secondary_draw_order = -1,
 			volume = 200,
-			pipe_connections = {
-				{
-					connection_type = "normal",
-					direction = defines.direction.west,
-					position = { x = -1, y = 0.5 }
-				},{
-					connection_type = "normal",
-					direction = defines.direction.east,
-					position = { x = 1, y = 0.5 }
-				}
-			}, 
+			pipe_connections = {{
+				direction = defines.direction.west,
+				position = { x = -1.1, y = 0 }
+			},{
+				direction = defines.direction.east,
+				position = { x = 1.1, y = 0 }
+			}}, 
 			production_type = "input"
 		},{
 			pipe_picture = pipe_picture,
 			pipe_picture_frozen = pipe_frozen,
 			pipe_covers = pipecoverspictures(),
-			secondary_draw_order = -5,
+			secondary_draw_order = -1,
 			volume = 100,
 			pipe_connections = {{
-				connection_type = "normal",
 				direction = defines.direction.north,
-				position = { x = 0, y = -0.5 },
-				flow_direction = "output"
+				position = { x = 0, y = -1.1 },
+			},{
+				direction = defines.direction.south,
+				position = { x = 0, y = 1.1 },
 			}},
 			production_type = "output"
 		}
 	},
-    corpse = "heat-exchanger-remnants",
+    corpse = "assembling-machine-1-remnants",
     dying_explosion = "heat-exchanger-explosion",
     open_sound = util.sounds.steam_open,
     close_sound = util.sounds.steam_close,
@@ -87,8 +90,8 @@ data:extend{{
 	},
 	circuit_wire_max_distance = 12,
 	max_health = 300,
-	collision_box = {{-1.45,-1}, {1.45,.9}},
-	selection_box = {{-1.5,-1}, {1.5,1}},
+	collision_box = {{-1.45,-1.45}, {1.45,1.45}},
+	selection_box = {{-1.5,-1.5}, {1.5,1.5}},
 	flags = {"player-creation"},
 	minable = {
 		mining_time = 0.1,
@@ -96,66 +99,18 @@ data:extend{{
 	},
 	placeable_by = {item = "halo-heatsink", count = 1},
 	tile_width = 3,
-	tile_height = 2,
+	tile_height = 3,
 	graphics_set = {
 		animation = {
-			north = {
-				layers = {{
-						filename = "__Solar-Halo__/heatsink/animationN.png",
-						size = {269, 221},
-						scale = 0.5,
-						shift = {-0.12,0.2},
-					},{
-						filename = "__base__/graphics/entity/boiler/boiler-N-shadow.png",
-						size = {274, 164},
-						scale = 0.5,
-						draw_as_shadow = true,
-						shift = {0.2,0.1},
-				}}
-			}, east = {
-				layers = {{
-						filename = "__Solar-Halo__/heatsink/animationE.png",
-						size = {211, 301},
-						scale = 0.5,
-						shift = {-0.1,0}
-					},{
-						filename = "__base__/graphics/entity/boiler/boiler-E-shadow.png",
-						size = {184, 194},
-						scale = 0.5,
-						draw_as_shadow = true,
-						shift = {0.2,0.1},
-				}}
-			}, south = {
-				layers = {{
-						filename = "__Solar-Halo__/heatsink/animationS.png",
-						size = {260, 201},
-						scale = 0.5,
-						shift = {0.1,0.1}
-					},{
-						filename = "__base__/graphics/entity/boiler/boiler-S-shadow.png",
-						size = {311, 131},
-						scale = 0.5,
-						draw_as_shadow = true,
-						shift = {0.2,0.1},
-				}}
-			}, west = {
-				layers = {{
-						filename = "__Solar-Halo__/heatsink/animationW.png",
-						size = {196, 273},
-						scale = 0.5,
-						shift = {0.1,0.1}
-					},{
-						filename = "__base__/graphics/entity/boiler/boiler-W-shadow.png",
-						size = {206,218},
-						scale = 0.5,
-						draw_as_shadow = true,
-						shift = {0.2,0.1},
-				}}
-			}
+			filename = "__Solar-Halo__/heatsink/animation.png",
+			width = 350,
+			height = 324,
+			frame_count = 1,
+			line_length = 1,
+			scale = 0.42,
+			shift = {.42, -.15},
 		},
-		
-		
-	}
+	},
 },{
 	type = "assembling-machine",
 	fixed_recipe = "halo-heatsinkreceiverlow",
@@ -167,12 +122,23 @@ data:extend{{
 		specific_heat = "3MJ",
 		max_transfer = "500MW",
 		min_working_temperature = 160,
-		connections = {
-			{
-				position = {x = -1, y = 0.5},
-				direction = defines.direction.south
-			}
-		}
+		connections = {{
+			position = {x = -1.1, y = -1.1},
+			direction = defines.direction.north
+		},{
+			position = {x = -1.1, y = -1.1},
+			direction = defines.direction.west
+		},{
+			position = {x = 1.1, y = 1.1},
+			direction = defines.direction.south
+		},{
+			position = {x = 1.1, y = 1.1},
+			direction = defines.direction.east
+		}},
+
+		pipe_covers = util.pipe_covers,
+		heat_pipe_covers = util.heat_pipe_covers,
+		heat_picture = util.heat_picture,
 	},
 	energy_usage = "500MW",
 	fluid_boxes = {{
@@ -190,11 +156,11 @@ data:extend{{
 	selectable_in_game = false,
 	name = "halo-heatsinklowreceiver",
 	hidden = true,
-	collision_box = {{-1.2,-0.8}, {1.2,.8}},
-	selection_box = {{-1.5,-1}, {1.5,1}},
+	collision_box = {{-1.45,-1.45}, {1.45,1.45}},
+	selection_box = {{-1.5,-1.5}, {1.5,1.5}},
 	selection_priority = 1,
 	tile_width = 3,
-	tile_height = 2
+	tile_height = 3
 },{
 	type = "assembling-machine",
 	fixed_recipe = "halo-heatsinkreceiverhigh",
@@ -206,12 +172,23 @@ data:extend{{
 		specific_heat = "3MJ",
 		max_transfer = "500MW",
 		min_working_temperature = 800,
-		connections = {
-			{
-				position = {x = 1, y = 0.5},
-				direction = defines.direction.south
-			}
-		}
+		connections = {{
+			position = {x = 1.1, y = -1.1},
+			direction = defines.direction.north
+		},{
+			position = {x = 1.1, y = -1.1},
+			direction = defines.direction.east
+		},{
+			position = {x = -1.1, y = 1.1},
+			direction = defines.direction.south
+		},{
+			position = {x = -1.1, y = 1.1},
+			direction = defines.direction.west
+		}},
+		
+		pipe_covers = util.pipe_covers,
+		heat_pipe_covers = util.heat_pipe_covers,
+		heat_picture = util.heat_picture,
 	},
 	energy_usage = "500MW",
 	fluid_boxes = {{
@@ -229,11 +206,11 @@ data:extend{{
 	selectable_in_game = false,
 	name = "halo-heatsinkhighreceiver",
 	hidden = true,
-	collision_box = {{-1.2,-0.8}, {1.2,.8}},
-	selection_box = {{-1.5,-1}, {1.5,1}},
+	collision_box = {{-1.45,-1.45}, {1.45,1.45}},
+	selection_box = {{-1.5,-1.5}, {1.5,1.5}},
 	selection_priority = 1,
 	tile_width = 3,
-	tile_height = 2
+	tile_height = 3
 },{
 	type = "item",
 	name = "halo-heatsink",

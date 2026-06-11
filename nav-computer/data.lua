@@ -1,11 +1,11 @@
-local util = require("util")
+local util = require("halo-util")
 
 data:extend{{
 	type = "ammo-turret",
 	name = "halo-nav-computer",
 	icon = "__Solar-Halo__/nav-computer/icon.png",
-	collision_box = {{-1.5,-1.5}, {1.5,1.5}},
-	selection_box = {{-1.5,-1.5}, {1.5,1.5}},
+	collision_box = {{-2,-1}, {2,1}},
+	selection_box = {{-2,-1}, {2,1}},
 	flags = {"not-rotatable", "player-creation"},
 	minable = {mining_time = 0.5, result = "halo-nav-computer"},
 	surface_conditions = {{
@@ -14,8 +14,8 @@ data:extend{{
 		max = 0,
 	}},
 	placeable_by = {item = "halo-nav-computer", count = 1},
-	tile_width = 3,
-	tile_height = 3,
+	tile_width = 4,
+	tile_height = 2,
 	max_health = 500,
 	circuit_wire_max_distance = 12,
 	starting_attack_speed = 10,
@@ -53,12 +53,12 @@ data:extend{{
 		base_visualisation = {
 			animation = {
 				filename = "__Solar-Halo__/nav-computer/animation.png",
-				width = 128,
-				height = 128,
+				width = 256,
+				height = 256,
 				frame_count = 1,
 				line_length = 1,
-				scale = 1,
-				shift = {0,-.3},
+				scale = 0.5,
+				shift = {0.25, -1},
 			},
 		},
 	},
@@ -115,12 +115,12 @@ data:extend{{
 },{
 	type = "recipe",
 	name = "halo-nav-pack",
-	category = "crafting-with-fluid",
+	category = "halo-computing",
 	enabled = false,
 	ingredients = {
 		{type = "fluid", name = "halo-compute", amount = 1000}
 	},
 	results = {{type = "item", name = "halo-nav-pack", amount = 1}},
-	energy_required = 3,
+	energy_required = 1,
 	hide_from_player_crafting = true,
 }}

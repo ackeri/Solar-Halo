@@ -1,4 +1,4 @@
-local util = require("util")
+local util = require("halo-util")
 
 local modules = data.raw["module"]
 local newmodules = {}
