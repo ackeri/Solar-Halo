@@ -265,13 +265,15 @@ function(event)
 	if event.tick % 67 ~= 0 then return end
 
 	for i,t in pairs(storage["computer"]) do
-		local newp = t.c.products_finished
-		local dur = (newp - t.p)/t.c.crafting_speed
-		local mult = 1000*0.5*(t.c.consumption_bonus + 1)
-		t.h.temperature = t.h.temperature + dur*mult/200
-		t.p = newp
-		
-		t.c.disabled_by_script = (t.h.temperature >= 200)
+		if t.c.valid and t.h.valid then
+			local newp = t.c.products_finished
+			local dur = (newp - t.p)/t.c.crafting_speed
+			local mult = 1000*0.5*(t.c.consumption_bonus + 1)
+			t.h.temperature = t.h.temperature + dur*mult/200
+			t.p = newp
+			
+			t.c.disabled_by_script = (t.h.temperature >= 200)
+		end
 	end
 end)
 

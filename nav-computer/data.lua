@@ -51,6 +51,7 @@ data:extend{{
 	},
 	graphics_set = {
 		base_visualisation = {
+			render_layer = "object",
 			animation = {
 				filename = "__Solar-Halo__/nav-computer/animation.png",
 				width = 256,
