@@ -71,6 +71,8 @@ data:extend{{
 	orientation = 0.125,
 	draw_orbit = false,
 	solar_power_in_space = 20000,
+	-- Redrawn Space Connections integration: keep Solar Halo's authored routes
+	redrawn_connections_keep = true,
 	icons = {{
 		icon = "__Solar-Halo__/space/solarorbit.png",
 		icon_size = 128,
@@ -101,6 +103,8 @@ data:extend{{
 	starmap_icon_size = 1,
 	fly_condition = true,
 	auto_save_on_first_trip = true,
+	-- Redrawn Space Connections integration: keep Solar Halo's authored routes
+	redrawn_connections_keep = true,
 	asteroid_spawn_definitions = {{
 		asteroid = "halo-flare",
 		probability = 0.02,
