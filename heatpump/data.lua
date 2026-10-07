@@ -204,7 +204,7 @@ data:extend{{
 },{
 	type = "recipe",
 	name = "halo-heatpump",
-	category = "crafting",
+	categories = {"crafting"},
 	enabled = false,
 	ingredients = {
 		{type = "item", name = "pump", amount = 1},
@@ -219,7 +219,7 @@ data:extend{{
 },{
 	type = "recipe",
 	name = "halo-heatpump-activity",
-	category = "halo-heatpump",
+	categories = {"halo-heatpump"},
 	enabled = true,
 	energy_required = 0.1,
 	ingredients = {{
@@ -237,7 +237,7 @@ data:extend{{
 },{
 	type = "recipe",
 	name = "halo-heatpumpreceiver",
-	category = "halo-heatpump",
+	categories = {"halo-heatpump"},
 	enabled = true,
 	energy_required = 0.01,
 	ingredients = {},

@@ -74,7 +74,7 @@ data:extend{{
 },{
 	type = "recipe",
 	name = "halo-nav-computer",
-	category = "crafting",
+	categories = {"crafting"},
 	enabled = false,
 	ingredients = {
 		{type = "item", name = "low-density-structure", amount = 10},
@@ -116,7 +116,7 @@ data:extend{{
 },{
 	type = "recipe",
 	name = "halo-nav-pack",
-	category = "halo-computing",
+	categories = {"halo-computing"},
 	enabled = false,
 	ingredients = {
 		{type = "fluid", name = "halo-compute", amount = 1000}

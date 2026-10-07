@@ -50,7 +50,7 @@ data:extend{{
 	subgroup = jelly.subgroup,
 	stack_size = 10,
 	icon = "__Solar-Halo__/gmo/icon.png",
-	fuel_category = "chemical",
+	fuel_categories = {"chemical"},
 	fuel_value = "4MJ",
 	place_result = "halo-gmo",
 	plant_result = "halo-gmo",
@@ -62,7 +62,7 @@ data:extend{{
 },{
 	type = "recipe",
 	name = "halo-gmo",
-	category = "crafting-with-fluid",
+	categories = {"crafting-with-fluid"},
 	enabled = false,
 	ingredients = {
 		{type = "item", name = "yumako-seed", amount = 1},

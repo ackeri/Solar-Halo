@@ -30,34 +30,34 @@ function M.on_built(entity)
 
 	local reactor = create_reactor(entity)
 
-	entity.fluidbox.add_linked_connection(1, receiver, 1)
-	entity.fluidbox.add_linked_connection(2, reactor, 1)
+	entity.add_fluid_box_linked_connection(1, receiver, 1)
+	entity.add_fluid_box_linked_connection(2, reactor, 1)
 end
 
 function M.on_removed(entity)
-	local receiver, _ = entity.fluidbox.get_linked_connection(1)
+	local receiver, _ = entity.get_fluid_box_linked_connection(1)
 	if receiver ~= nil then
 		receiver.destroy()
 	end
 
-	local reactor, _ = entity.fluidbox.get_linked_connection(2)
+	local reactor, _ = entity.get_fluid_box_linked_connection(2)
 	if reactor ~= nil then
 		reactor.destroy()
 	end
 end
 
 function M.on_rotated(entity)
-	local receiver, _ = entity.fluidbox.get_linked_connection(1)
+	local receiver, _ = entity.get_fluid_box_linked_connection(1)
 	if receiver ~= nil then
 		receiver.direction = entity.direction
 	end
 
-	local reactor, _ = entity.fluidbox.get_linked_connection(2)
+	local reactor, _ = entity.get_fluid_box_linked_connection(2)
 	if reactor ~= nil then
 		reactor.destroy()
 	end
 	local new_reactor = create_reactor(entity)
-	entity.fluidbox.add_linked_connection(2, new_reactor, 1)
+	entity.add_fluid_box_linked_connection(2, new_reactor, 1)
 end
 
 return M

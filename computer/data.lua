@@ -225,7 +225,7 @@ data:extend{{
 	order = "zzz"
 },{
 	type = "recipe",
-	category = "halo-computing",
+	categories = {"halo-computing"},
 	name = "halo-compute",
 	enabled = false,
 	energy_required = 1,

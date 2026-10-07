@@ -3,8 +3,8 @@ local util = require("halo-util")
 function outputsTool(recipe)
 	if data.raw["recipe"][recipe] and data.raw["recipe"][recipe].results then
 		for _,r in ipairs(data.raw["recipe"][recipe].results) do
-			local proto = data.raw["tool"][r.name]
-			if proto then
+			local proto = data.raw["item"][r.name]
+			if proto and proto.subgroup == "science-pack" then
 				return proto
 			end
 		end
@@ -79,11 +79,11 @@ for tool, tech in pairs(sciences) do
 			name = "halo-" .. tool.name,
 			localised_name = {"halo-name-simulate", util.getLocalName(tool)},
 			enabled = false,
-			category = "halo-computing",
+			categories = {"halo-computing"},
 			ingredients = {
 				{type = "fluid", name = "halo-compute", amount = 1000}
 			},
-			results = {{type = "item", name = tool.name, amount = 1, probability = 0.1}},
+			results = {{type = "item", name = tool.name, amount = 1, independent_probability = 0.1}},
 			energy_required = 1,
 			allow_productivity = true,
 			hide_from_player_crafting = true,

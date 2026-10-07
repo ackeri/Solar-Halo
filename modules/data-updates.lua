@@ -58,7 +58,7 @@ for name,proto in pairs(modules) do
 	local newmrecipe = {
 		type = "recipe",
 		name = newm.name,
-		category = "crafting-with-fluid",
+		categories = {"crafting-with-fluid"},
 		ingredients = {
 			{type = "item", name = name, amount = 1},
 			{type = "fluid", name = "halo-compute", amount = 100000}

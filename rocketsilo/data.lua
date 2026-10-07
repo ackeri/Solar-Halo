@@ -37,7 +37,7 @@ data:extend{{
 	icon_draw_specification = { shift = { 0, 2 } },
 	module_slots = 2,
 	icons_positioning = {
-		{ inventory_index = defines.inventory.assembling_machine_modules, shift = { 0, 3.3 } },
+		{ inventory_index = defines.inventory.crafter_modules, shift = { 0, 3.3 } },
 	},
 	fixed_recipe = "halo-rocket-part",
 	show_recipe_icon = false,
@@ -358,7 +358,7 @@ data:extend{{
 	enabled = true,
 	hide_from_player_crafting = true,
 	auto_recycle = false,
-	category = "halo-rocket-building",
+	categories = {"halo-rocket-building"},
 	order = "b[rocket-part]a",
 	ingredients = {
 		{ type = "item", name = "low-density-structure", amount = 1 },
@@ -377,7 +377,7 @@ data:extend{{
 	energy_required = 120,
 	enabled = false,
 	hide_from_player_crafting = true,
-	category = "electromagnetics",
+	categories = {"electromagnetics"},
 	ingredients = {
 		{ type = "item", name = "concrete", amount = 1000 },
 		{ type = "item", name = "steel-plate", amount = 500 },

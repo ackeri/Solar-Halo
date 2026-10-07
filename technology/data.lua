@@ -1,4 +1,4 @@
-local science = table.deepcopy(data.raw["tool"]["electromagnetic-science-pack"])
+local science = table.deepcopy(data.raw["item"]["electromagnetic-science-pack"])
 science.name = "halo-science-pack"
 science.icon = "__Solar-Halo__/science.png"
 science.icon_size = 64
@@ -7,7 +7,7 @@ data:extend{science}
 data:extend{{
 	type = "recipe",
 	name = "halo-science-pack",
-	category = "crafting-with-fluid",
+	categories = {"crafting-with-fluid"},
 	enabled = false,
 	energy_required = 1,
 	ingredients = {

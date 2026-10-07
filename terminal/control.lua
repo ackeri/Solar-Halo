@@ -19,11 +19,11 @@ end
 -- electricity into the "fluid" the charge recipe consumes. Safe to run on
 -- terminals that already have them.
 function M.ensure_helpers(entity)
-	if not entity.fluidbox.get_linked_connection(1) then
-		entity.fluidbox.add_linked_connection(1, create_hidden(entity, "halo-terminal-turbine"), 1)
+	if not entity.get_fluid_box_linked_connection(1) then
+		entity.add_fluid_box_linked_connection(1, create_hidden(entity, "halo-terminal-turbine"), 1)
 	end
-	if not entity.fluidbox.get_linked_connection(2) then
-		entity.fluidbox.add_linked_connection(2, create_hidden(entity, "halo-terminal-charger"), 1)
+	if not entity.get_fluid_box_linked_connection(2) then
+		entity.add_fluid_box_linked_connection(2, create_hidden(entity, "halo-terminal-charger"), 1)
 	end
 end
 
@@ -41,7 +41,7 @@ end
 
 function M.on_removed(entity)
 	for id = 1, 2 do
-		local helper, _ = entity.fluidbox.get_linked_connection(id)
+		local helper, _ = entity.get_fluid_box_linked_connection(id)
 		if helper ~= nil then
 			helper.destroy()
 		end
@@ -50,7 +50,7 @@ end
 
 function M.on_rotated(entity)
 	for id = 1, 2 do
-		local helper, _ = entity.fluidbox.get_linked_connection(id)
+		local helper, _ = entity.get_fluid_box_linked_connection(id)
 		if helper ~= nil then
 			helper.direction = entity.direction
 		end

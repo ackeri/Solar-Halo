@@ -18,16 +18,16 @@ for _, surface in pairs(game.surfaces) do
 		local recipe = entity.get_recipe()
 		local recipe_name = recipe and recipe.name
 
-		local old_low = entity.fluidbox.get_linked_connection(1)
+		local old_low = entity.get_fluid_box_linked_connection(1)
 		if old_low then old_low.destroy() end
-		local old_high = entity.fluidbox.get_linked_connection(2)
+		local old_high = entity.get_fluid_box_linked_connection(2)
 		if old_high then old_high.destroy() end
 
 		local receiverlow, receiverhigh = heatsink_control.create_receivers(
 			entity.surface, entity.position, entity.force, entity.direction)
 
-		entity.fluidbox.add_linked_connection(1, receiverlow, 1)
-		entity.fluidbox.add_linked_connection(2, receiverhigh, 1)
+		entity.add_fluid_box_linked_connection(1, receiverlow, 1)
+		entity.add_fluid_box_linked_connection(2, receiverhigh, 1)
 
 		if recipe_name and not entity.get_recipe() then
 			entity.set_recipe(recipe_name)

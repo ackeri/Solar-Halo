@@ -254,7 +254,7 @@ data:extend{{
 	inventory_move_sound = "__base__/sound/item/energy-shield-inventory-move.ogg",
 },{
 	type = "recipe",
-	category = "electromagnetics",
+	categories = {"electromagnetics"},
 	name = "halo-terminal",
 	enabled = false,
 	energy_required = 5,
@@ -297,7 +297,7 @@ data:extend{{
 	name = "halo-terminal-charger",
 },{
 	type = "recipe",
-	category = "halo-terminal-charger",
+	categories = {"halo-terminal-charger"},
 	name = "halo-terminal-charger",
 	enabled = true,
 	-- 500MW for 1/500th of a second is 1MJ per unit of fluid
@@ -313,7 +313,7 @@ data:extend{{
 	hidden_in_factoriopedia = true,
 },{
 	type = "recipe",
-	category = "halo-terminal",
+	categories = {"halo-terminal"},
 	name = "halo-charge",
 	enabled = false,
 	energy_required = 2,
@@ -333,7 +333,7 @@ data:extend{{
 	hide_from_player_crafting = true,
 },{
 	type = "recipe",
-	category = "halo-terminal",
+	categories = {"halo-terminal"},
 	name = "halo-discharge",
 	icon = "__Solar-Halo__/terminal/energy.png",
 	enabled = false,

@@ -39,7 +39,7 @@ shpipe.place_result = "halo-superheated-pipe"
 -- "Heat pipe" (see above), so the item would lose the "Superheated" label.
 shpipe.localised_name = {"item-name.halo-superheated-pipe"}
 shpipe.localised_description = {"item-description.halo-superheated-pipe"}
-shpipe.fuel_category = "chemical"
+shpipe.fuel_categories = {"chemical"}
 shpipe.burnt_result = "heat-pipe"
 shpipe.fuel_value = "350MJ"
 shpipe.fuel_emissions_multiplier = 0
@@ -267,7 +267,7 @@ data:extend{{
 },{
 	type = "recipe",
 	name = "halo-heatsink",
-	category = "crafting",
+	categories = {"crafting"},
 	enabled = false,
 	ingredients = {
 		{type = "item", name = "copper-plate", amount = 100},
@@ -279,7 +279,7 @@ data:extend{{
 },{
 	type = "recipe",
 	name = "halo-heatsinkreceiverlow",
-	category = "halo-heatpump",
+	categories = {"halo-heatpump"},
 	enabled = true,
 	energy_required = 0.01,
 	ingredients = {},
@@ -294,7 +294,7 @@ data:extend{{
 },{
 	type = "recipe",
 	name = "halo-heatsinkreceiverhigh",
-	category = "halo-heatpump",
+	categories = {"halo-heatpump"},
 	enabled = true,
 	energy_required = 0.01,
 	ingredients = {},
@@ -312,7 +312,7 @@ data:extend{{
 },{
 	type = "recipe",
 	name = "halo-heatsink-low",
-	category = "halo-heatsink",
+	categories = {"halo-heatsink"},
 	icon = "__base__/graphics/icons/signal/signal-thermometer-blue.png",
 	enabled = false,
 	energy_required = 0.1,
@@ -329,7 +329,7 @@ data:extend{{
 },{
 	type = "recipe",
 	name = "halo-heatsink-high",
-	category = "halo-heatsink",
+	categories = {"halo-heatsink"},
 	icon = "__base__/graphics/icons/signal/signal-thermometer-red.png",
 	enabled = false,
 	energy_required = 0.01,
@@ -346,7 +346,7 @@ data:extend{{
 },{
 	type = "recipe",
 	name = "halo-heatsink-steam",
-	category = "halo-heatsink",
+	categories = {"halo-heatsink"},
 	icon = "__base__/graphics/icons/fluid/steam.png",
 	enabled = false,
 	energy_required = 0.05,
@@ -375,7 +375,7 @@ data:extend{{
 },{
 	type = "recipe",
 	name = "halo-heatsink-coolant",
-	category = "halo-heatsink",
+	categories = {"halo-heatsink"},
 	icon = "__space-age__/graphics/icons/fluid/fluoroketone-cold.png",
 	enabled = false,
 	energy_required = 0.01,
@@ -403,7 +403,7 @@ data:extend{{
 },{
 	type = "recipe",
 	name = "halo-heatsink-pipe",
-	category = "halo-heatsink",
+	categories = {"halo-heatsink"},
 	enabled = false,
 	energy_required = 100,
 	ingredients = {

@@ -33,17 +33,17 @@ function M.on_built(entity)
 	local receiverlow, receiverhigh = M.create_receivers(
 		entity.surface, entity.position, entity.force_index, entity.direction)
 
-	entity.fluidbox.add_linked_connection(1, receiverlow, 1)
-	entity.fluidbox.add_linked_connection(2, receiverhigh, 1)
+	entity.add_fluid_box_linked_connection(1, receiverlow, 1)
+	entity.add_fluid_box_linked_connection(2, receiverhigh, 1)
 end
 
 function M.on_removed(entity)
-	local receiver, _ = entity.fluidbox.get_linked_connection(1)
+	local receiver, _ = entity.get_fluid_box_linked_connection(1)
 	if receiver ~= nil then
 		receiver.destroy()
 	end
 
-	receiver, _ = entity.fluidbox.get_linked_connection(2)
+	receiver, _ = entity.get_fluid_box_linked_connection(2)
 	if receiver ~= nil then
 		receiver.destroy()
 	end

@@ -67,7 +67,7 @@ data:extend{{
 },{
 	type = "recipe",
 	name = "halo-thermostat",
-	category = "crafting",
+	categories = {"crafting"},
 	enabled = false,
 	ingredients = {
 		{type = "item", name = "heat-pipe", amount = 1},
