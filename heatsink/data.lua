@@ -93,10 +93,17 @@ data:extend{{
 			pipe_covers = util.pipecoverspictures(),
 			secondary_draw_order = -1,
 			volume = 100,
+			-- Output-only, like the vanilla heat exchanger's steam port. The
+			-- default is input-output, and a filtered input-output port locks
+			-- the whole attached pipeline to the recipe's exact output (steam
+			-- at exactly 165 degrees), which then conflicts with turbines
+			-- (steam 100-500) and shows a fluid mixing warning.
 			pipe_connections = {{
+				flow_direction = "output",
 				direction = defines.direction.north,
 				position = { x = 0, y = -1.1 },
 			},{
+				flow_direction = "output",
 				direction = defines.direction.south,
 				position = { x = 0, y = 1.1 },
 			}},
@@ -427,3 +434,25 @@ data:extend{{
 	subgroup = "fluid-recipes",
 	order = "zzze",
 }}
+
+-- A crafting machine's fluidbox takes its filter from the active recipe's
+-- ingredient. Each heat-energy box is linked to a receiver whose recipe makes
+-- heat energy at exactly 160 (low) or 800 (high) degrees, and two linked ports
+-- only share a fluid segment while their filters agree. An ingredient with no
+-- temperature range filters 15-999, which doesn't match, so the heatsink never
+-- received any of the receiver's fluid. Pin each ingredient to its receiver.
+local heat_temperature_by_recipe = {
+	["halo-heatsink-low"] = 160,
+	["halo-heatsink-steam"] = 160,
+	["halo-heatsink-coolant"] = 160,
+	["halo-heatsink-high"] = 800,
+	["halo-heatsink-pipe"] = 800,
+}
+for recipe_name, temperature in pairs(heat_temperature_by_recipe) do
+	for _, ingredient in pairs(data.raw["recipe"][recipe_name].ingredients) do
+		if ingredient.name == "halo-heat-energy" then
+			ingredient.minimum_temperature = temperature
+			ingredient.maximum_temperature = temperature
+		end
+	end
+end

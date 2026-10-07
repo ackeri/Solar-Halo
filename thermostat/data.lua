@@ -1,8 +1,14 @@
 local util = require("halo-util")
 
+-- Deprecated: heat pipes can read their own temperature onto the circuit
+-- network natively, making this redundant. It stays defined (hidden and
+-- uncraftable) so existing blueprints that mention it don't break, and so
+-- thermostat/control.lua can find and convert the ones already placed.
 data:extend{{
 	type = "reactor",
 	name = "halo-thermostat",
+	hidden = true,
+	hidden_in_factoriopedia = true,
 	heat_buffer = {
 		max_temperature = 999,
 		specific_heat = "2MJ",
@@ -63,12 +69,16 @@ data:extend{{
 	subgroup = "environmental-protection",
 	stack_size = 50,
 	icon = "__Solar-Halo__/thermostat/icon.png",
-	place_result = "halo-thermostat"
+	place_result = "halo-thermostat",
+	hidden = true,
+	hidden_in_factoriopedia = true,
 },{
 	type = "recipe",
 	name = "halo-thermostat",
 	categories = {"crafting"},
 	enabled = false,
+	hidden = true,
+	hidden_in_factoriopedia = true,
 	ingredients = {
 		{type = "item", name = "heat-pipe", amount = 1},
 		{type = "item", name = "advanced-circuit", amount = 2}

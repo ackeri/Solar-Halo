@@ -17,6 +17,7 @@ local terminal = require("terminal.control")
 local heatpump = require("heatpump.control")
 local heatsink = require("heatsink.control")
 local space = require("space.control")
+local thermostat = require("thermostat.control")
 require("nav-computer.control")
 
 local on_built_by_name = {
@@ -48,6 +49,7 @@ end)
 
 script.on_configuration_changed(function()
 	terminal.ensure_all_helpers()
+	thermostat.convert_all()
 	computer.ensure_storage()
 	space.ensure_storage()
 	space.ensure_solar_station_power()

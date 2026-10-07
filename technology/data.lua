@@ -70,9 +70,6 @@ data:extend{{
 		},{
 			type = "unlock-recipe",
 			recipe = "halo-heatsink-steam"
-		},{
-			type = "unlock-recipe",
-			recipe = "halo-thermostat"
 	}}
 },{
 	type = "technology",

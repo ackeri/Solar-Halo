@@ -1,4 +1,27 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.0
+Date: 2026-10-08
+  Compatibility:
+    - Updated for Factorio 2.1 (factorio_version is now 2.1; this release does not load on 2.0,
+      the 1.1.0 release is the one for 2.0). Science packs are item prototypes instead of tools,
+      recipe category became categories, probability became independent_probability,
+      fuel_category became fuel_categories, defines.inventory.assembling_machine_modules became
+      crafter_modules, and linked fluidbox connections moved from entity.fluidbox to
+      entity.add_fluid_box_linked_connection and entity.get_fluid_box_linked_connection.
+  Bugfixes:
+    - Fixed the heatsink and heatpump not receiving heat energy on 2.1. A recipe's ingredient now
+      sets the machine's fluidbox filter, and linked ports only share fluid while their filters
+      match, so the ingredients are pinned to their receivers' exact temperatures (160/800 for the
+      heatsink, 40 for the heatpump).
+    - Fixed the heatsink's steam and fluoroketone outputs showing a fluid mixing warning when
+      connected to turbines and pipes. The output ports are now output-only like the vanilla heat
+      exchanger's.
+  Changes:
+    - Deprecated the thermostat, since heat pipes can read their own temperature onto the circuit
+      network natively. Existing thermostats (and item stacks of them) are converted to heat pipes
+      automatically, along with their wire connections and configured signal. The recipe is
+      hidden and no longer unlocked.
+---------------------------------------------------------------------------------------------------
 Version: 1.1.0
 Date: 2026-10-07
   Bugfixes:

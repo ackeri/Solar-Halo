@@ -251,4 +251,13 @@ data:extend{{
 	hidden_in_factoriopedia = true,
 }}
 
-
+-- A recipe ingredient sets the machine fluidbox filter, and two linked ports only
+-- share a fluid segment while their filters agree. The receiver makes heat energy
+-- at exactly 40 degrees, but an ingredient with no temperature range filters
+-- 15-999, so the pump never received any of it.
+for _, ingredient in pairs(data.raw["recipe"]["halo-heatpump-activity"].ingredients) do
+	if ingredient.name == "halo-heat-energy" then
+		ingredient.minimum_temperature = 40
+		ingredient.maximum_temperature = 40
+	end
+end

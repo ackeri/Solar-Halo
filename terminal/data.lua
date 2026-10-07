@@ -15,8 +15,10 @@ data:extend{{
     crafting_speed = 1,
     crafting_categories = {"halo-terminal"},
     -- The terminal only pays for running its own machinery, as a primary
-    -- consumer, so it can keep discharging during a blackout (the 500MJ buffer
-    -- also covers starting back up). The energy that actually gets stored
+    -- consumer, so it can keep discharging during a blackout. It has no big
+    -- energy buffer on purpose: as a primary consumer it would fill it ahead
+    -- of everything else on the network (the hidden turbine's fuel is what
+    -- restarts it after a blackout). The energy that actually gets stored
     -- while charging is bought by halo-terminal-charger below, which is a
     -- tertiary consumer and so only draws surplus power. 20MW for the
     -- 2 second charge recipe plus the charger's 500MW for 2 seconds is the
@@ -25,7 +27,6 @@ data:extend{{
     energy_usage = "20MW",
     energy_source = {
         type = "electric",
-        buffer_capacity = "500MJ",
         usage_priority = "primary-input",
         drain = "4MW"
     },
