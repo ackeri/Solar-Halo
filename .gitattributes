@@ -3,3 +3,4 @@ README.md export-ignore
 .gitignore export-ignore
 tools/ export-ignore
 docs/ export-ignore
+space/recolor.py export-ignore
