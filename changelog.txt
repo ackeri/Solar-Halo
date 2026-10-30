@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.1
+Date: 2026-10-30
+  Bugfixes:
+    - Fixed the mod failing to load on engine builds where the lava tile effect's texture list is
+      named noise_textures instead of textures (space/data.lua: attempt to index field 'textures').
+---------------------------------------------------------------------------------------------------
 Version: 1.2.0
 Date: 2026-10-08
   Compatibility:
