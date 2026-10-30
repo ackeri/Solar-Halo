@@ -4,6 +4,8 @@ Date: 2026-10-30
   Bugfixes:
     - Fixed the mod failing to load on engine builds where the lava tile effect's texture list is
       named noise_textures instead of textures (space/data.lua: attempt to index field 'textures').
+    - Fixed a crash when the solar station is first visited: the station's hidden power source was
+      marked unminable with a property that is read only (LuaEntity::minable instead of minable_flag).
 ---------------------------------------------------------------------------------------------------
 Version: 1.2.0
 Date: 2026-10-08
