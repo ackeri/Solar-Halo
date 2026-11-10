@@ -331,6 +331,38 @@ data:extend{{
 	results = {{type = "item", name = "halo-foundation", amount = 9}}
 }}
 
+-- Mods that redraw the star map (Redrawn Space Connections, planet mods that
+-- move things around) would otherwise treat the orbit and the station as two
+-- ordinary locations a short hop apart. These flags are read by Redrawn Space
+-- Connections: leave both out of the triangulation, and keep their routes as
+-- they are. Unknown fields are ignored when that mod isn't there.
+for _, location in ipairs{
+	data.raw["space-location"]["halo-solar-orbit"],
+	data.raw["planet"]["halo-solar-station"],
+} do
+	location.redrawn_connections_exclude = true
+end
+for _, name in ipairs{"vulcanus-solar", "solar-station"} do
+	data.raw["space-connection"][name].redrawn_connections_keep = true
+end
+
+-- The station hangs off the orbit, in the way PlanetsLib describes: its
+-- position is an offset from its parent's, so a mod that moves the orbit moves
+-- the station with it. The offset puts the station where it always was, at
+-- distance 2.5 and orientation 0.125 on the map, with the orbit at 4.
+if mods["PlanetsLib"] then
+	local station = data.raw["planet"]["halo-solar-station"]
+	data.raw["planet"]["halo-solar-station"] = nil
+	station.distance = nil
+	station.orientation = nil
+	station.orbit = {
+		parent = {type = "space-location", name = "halo-solar-orbit"},
+		distance = 1.5,
+		orientation = 0.625,
+	}
+	PlanetsLib:extend{station}
+end
+
 data.raw["tile"]["halo-foundation"].variants = data.raw["tile"]["foundation"].variants
 data.raw["tile"]["halo-foundation"].variants.main = data.raw["tile"]["space-platform-foundation"].variants.main
 data.raw["tile"]["halo-foundation"].variants.material_background = data.raw["tile"]["space-platform-foundation"].variants.material_background

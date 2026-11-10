@@ -116,7 +116,8 @@ for tool, tech in pairs(sciences) do
 			icon_size = tool.icon_size,
 			icons = tool.icons,
 			essential = false,
-			unit = {count = 2000, time = 30, ingredients = genIngredients(tool.name)},
+			-- simulating the mod's own pack is the dearest of them
+			unit = {count = tool.name == "halo-science-pack" and 4000 or 2000, time = 30, ingredients = genIngredients(tool.name)},
 			prerequisites = {"halo-sim", tech.name},
 			effects = {{
 				type = "unlock-recipe",

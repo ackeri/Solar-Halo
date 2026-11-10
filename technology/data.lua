@@ -282,9 +282,6 @@ data:extend{{
 		},{
 			type = "unlock-recipe",
 			recipe = "halo-space-science-pack"
-		},{
-			type = "unlock-recipe",
-			recipe = "halo-halo-science-pack"
 	}}
 },{
 	type = "technology",
