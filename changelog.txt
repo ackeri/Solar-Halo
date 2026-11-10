@@ -1,4 +1,13 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.2
+Date: 2026-11-08
+  Bugfixes:
+    - Fixed the game failing to load with "recipe halo-automation-science-pack does not exist" in
+      mod lists where another mod changes how the vanilla science packs are unlocked or filed. The
+      simulated experiments for the packs the Simulated experiments technology names are now made
+      whenever the pack exists, rather than only when a technology unlocks the pack. A mod list with
+      no science packs to simulate no longer fails on an empty list.
+---------------------------------------------------------------------------------------------------
 Version: 1.2.1
 Date: 2026-10-30
   Bugfixes:

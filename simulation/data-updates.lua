@@ -25,11 +25,16 @@ for name, proto in pairs(data.raw["technology"]) do
 	end
 end
 
+-- Science packs are items; older prototype sets declared them as tools.
+function findPack(name)
+	return data.raw["item"][name] or (data.raw["tool"] or {})[name]
+end
+
 function genIngredients(name)
 	local packs = {"automation-science-pack", "logistic-science-pack", "chemical-science-pack", "space-science-pack", "halo-science-pack"}
 	local out = {}
 	for _,p in ipairs(packs) do
-		if name ~= p then
+		if name ~= p and findPack(p) then
 			table.insert(out, {p, 1})
 		end
 	end
@@ -71,28 +76,35 @@ function contains(list, element)
 end
 
 local sims = {}
+local simulated = {}
+
+local function simulateRecipe(tool)
+	local newr = {
+		type = "recipe",
+		name = "halo-" .. tool.name,
+		localised_name = {"halo-name-simulate", util.getLocalName(tool)},
+		enabled = false,
+		categories = {"halo-computing"},
+		ingredients = {
+			{type = "fluid", name = "halo-compute", amount = 1000}
+		},
+		results = {{type = "item", name = tool.name, amount = 1, independent_probability = 0.1}},
+		energy_required = 1,
+		allow_productivity = true,
+		hide_from_player_crafting = true,
+		hidden_in_factoriopedia = false,
+	}
+	if tool.spoil_ticks then
+		newr.results[1].percent_spoiled = 0.2
+	end
+	table.insert(sims, newr)
+	simulated[tool.name] = true
+end
+
 for tool, tech in pairs(sciences) do
 	if contains(recipewhitelist, tool.name) or
 		contains(whitelist, tool.name) then
-		local newr = {
-			type = "recipe",
-			name = "halo-" .. tool.name,
-			localised_name = {"halo-name-simulate", util.getLocalName(tool)},
-			enabled = false,
-			categories = {"halo-computing"},
-			ingredients = {
-				{type = "fluid", name = "halo-compute", amount = 1000}
-			},
-			results = {{type = "item", name = tool.name, amount = 1, independent_probability = 0.1}},
-			energy_required = 1,
-			allow_productivity = true,
-			hide_from_player_crafting = true,
-			hidden_in_factoriopedia = false,
-		}
-		if tool.spoil_ticks then
-			newr.results[1].percent_spoiled = 0.2
-		end
-		table.insert(sims, newr)
+		simulateRecipe(tool)
 	end
 	if contains(whitelist, tool.name) then
 		local newt = {
@@ -115,4 +127,18 @@ for tool, tech in pairs(sciences) do
 	end
 end
 
-data:extend(sims)
+-- The "halo-sim" technology unlocks these by name, so they are simulated
+-- whenever the pack exists, whether or not a technology in this game unlocks
+-- its own recipe. Another mod can take that unlock away, file the pack under
+-- another subgroup or start it unlocked, and the technology would otherwise
+-- point at recipes that were never made.
+for _,name in ipairs(recipewhitelist) do
+	local tool = findPack(name)
+	if tool and not simulated[name] then
+		simulateRecipe(tool)
+	end
+end
+
+if #sims > 0 then
+	data:extend(sims)
+end
