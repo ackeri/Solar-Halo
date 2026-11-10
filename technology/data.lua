@@ -32,7 +32,7 @@ data:extend{{
 			{"space-science-pack", 1}
 		}
 	},
-	prerequisites = {"planet-discovery-vulcanus"},
+	prerequisites = {"space-science-pack"},
 	effects = {{
 			type = "unlock-space-location",
 			space_location = "halo-solar-orbit"

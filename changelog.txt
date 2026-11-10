@@ -6,6 +6,10 @@ Date: 2026-11-10
       to the Solar orbit when PlanetsLib is installed, so it follows if another mod moves the orbit.
       Both locations and their routes are also flagged to be left alone by Redrawn Space Connections.
     - Simulating the Solar Halo science pack now costs 4000 units instead of 2000.
+    - Location discovery near solar orbit no longer requires discovering Vulcanus first, so that
+      mods that redraw the routes can put the Solar orbit anywhere. A platform still needs a route
+      of discovered locations to get there, which is through Vulcanus in the default layout, and the
+      technology's description now says so.
   Bugfixes:
     - The Simulated experiments technology no longer also unlocks simulating the Solar Halo science
       pack. That is only unlocked by its own technology.
