@@ -2,8 +2,9 @@
 Version: 1.2.3
 Date: 2026-11-10
   Changes:
-    - Compatibility with mods that rearrange the star map: the Solar Station is now positioned relative
-      to the Solar orbit when PlanetsLib is installed, so it follows if another mod moves the orbit.
+    - Compatibility with mods that rearrange the star map: when PlanetsLib is installed the Solar Station
+      is positioned relative to the Solar orbit, and the orbit relative to Vulcanus, so they follow if
+      another mod moves things. Better Planets no longer deletes the orbit's only route.
       Both locations and their routes are also flagged to be left alone by Redrawn Space Connections.
     - Simulating the Solar Halo science pack now costs 4000 units instead of 2000.
     - Location discovery near solar orbit no longer requires discovering Vulcanus first, so that

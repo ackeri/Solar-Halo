@@ -346,11 +346,26 @@ for _, name in ipairs{"vulcanus-solar", "solar-station"} do
 	data.raw["space-connection"][name].redrawn_connections_keep = true
 end
 
--- The station hangs off the orbit, in the way PlanetsLib describes: its
--- position is an offset from its parent's, so a mod that moves the orbit moves
--- the station with it. The offset puts the station where it always was, at
--- distance 2.5 and orientation 0.125 on the map, with the orbit at 4.
+-- The locations hang off one another, in the way PlanetsLib describes: a
+-- position is an offset from the parent's, so a mod that moves Vulcanus moves
+-- the orbit and the station with it. The offsets put them where they always
+-- were in the default layout: the orbit at distance 4 and orientation 0.125 on
+-- the map, the station at 2.5 and 0.125.
+-- The orbit hangs off Vulcanus, the end of its only route, rather than off the
+-- star. Map mods that tidy up routes between planets orbiting the star (Better
+-- Planets deletes those crossing the map's north line) leave it alone then.
 if mods["PlanetsLib"] then
+	local orbit = data.raw["space-location"]["halo-solar-orbit"]
+	data.raw["space-location"]["halo-solar-orbit"] = nil
+	orbit.distance = nil
+	orbit.orientation = nil
+	orbit.orbit = {
+		parent = {type = "planet", name = "vulcanus"},
+		distance = 6.08,
+		orientation = 0.5836,
+	}
+	PlanetsLib:extend{orbit}
+
 	local station = data.raw["planet"]["halo-solar-station"]
 	data.raw["planet"]["halo-solar-station"] = nil
 	station.distance = nil
