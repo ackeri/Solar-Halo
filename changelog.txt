@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.4
+Date: 2026-11-13
+  Bugfixes:
+    - Inserters can load and unload heatsinks again. They were reaching for one of the heatsink's hidden
+      heat receivers instead, which holds nothing. Heatsinks already placed are fixed when the game loads.
+---------------------------------------------------------------------------------------------------
 Version: 1.2.3
 Date: 2026-11-10
   Changes:
